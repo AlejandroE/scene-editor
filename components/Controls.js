@@ -7,8 +7,9 @@ const Controls = () => {
   };
 
   const predefinedCameras = {
-    one: "50deg 58deg 105%",
-    two: "53deg 15deg 47%",
+    none: null,
+    one: {theta: 50, phi: 58, rho: 105},
+    two: {theta: 250, phi: 15, rho: 47},
   };
 
   const cameraVals = {
@@ -31,11 +32,10 @@ const Controls = () => {
   };
 
   const { bg } = useControls(bgVal);
-  const { autoRotate } = useControls({ autoRotate: false }); // auto rotate effes up the sperical coords & doesn't respect limits
-  const { presetCameras } = useControls({
-    presetCameras: { options: predefinedCameras },
+  const {autoRotate} = useControls({autoRotate: false}); // auto rotate effes up the sperical coords & doesn't respect limits
+  const {presetCamera} = useControls({
+    presetCamera: { options: predefinedCameras },
   });
-
   const { environment } = useControls({
     environment: { options: environments },
   });
@@ -49,7 +49,7 @@ const Controls = () => {
     bg,
     autoRotate,
     environment,
-    presetCameras,
+    presetCamera,
     camera,
     cameraLimits,
     setCamera,

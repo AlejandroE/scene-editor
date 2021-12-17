@@ -1,5 +1,5 @@
 import "@google/model-viewer";
-import { useEffect, useRef, useState, memo } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function debounce(func, timeout = 200) {
   let timer;
@@ -12,22 +12,17 @@ function debounce(func, timeout = 200) {
 }
 
 const Model = (props) => {
-  const { bg, autoRotate, camera, setCamera, cameraLimits, environment } =
+  const {bg, autoRotate, camera, setCamera, cameraLimits, environment, presetCamera} =
     props;
   const { rho, phi, theta } = camera;
   const { limitsEnabled, limitPhi, limitRho, limitTheta } = cameraLimits;
 
-  const [isEnvLight, setIsEnvLight] = useState(false);
   const [cameraRadiusRatio, setCameraRadiusRatio] = useState(0);
   const [maxOrbit, setMaxOrbit] = useState(null);
   const [minOrbit, setMinOrbit] = useState(null);
   const viewer = useRef(null);
   const prevPropsRef = useRef({ rho: 0, theta: 0, phi: 0 });
   const prevProps = prevPropsRef.current;
-
-  const handleLightChange = () => {
-    setIsEnvLight(!isEnvLight);
-  };
 
   const radiansToDegOrbit = ({ theta, phi, radius, rho }) => {
     rho = rho ? rho : radius;
@@ -48,6 +43,12 @@ const Model = (props) => {
   });
 
   useEffect(() => {
+    if (viewer?.current && presetCamera) {
+      setCamera(presetCamera);
+    }
+  },[presetCamera, setCamera]);
+  
+  useEffect(() => {
     if (viewer?.current && limitsEnabled) {
       const { theta, phi, rho } = radiansToDegOrbit(
         viewer.current.getCameraOrbit()
@@ -63,7 +64,7 @@ const Model = (props) => {
         phi: phi - limitPhi / 2,
         rho: rho - limitRho / 2,
       };
-      console.log(maxOrbit, minOrbit);
+      console.log(minOrbit, maxOrbit);
       setMinOrbit(minOrbit);
       setMaxOrbit(maxOrbit);
     } else {
