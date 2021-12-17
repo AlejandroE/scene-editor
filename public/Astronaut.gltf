@@ -1,0 +1,176 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "THREE.GLTFExporter"
+  },
+  "scenes": [
+    {
+      "nodes": [
+        1
+      ],
+      "name": "Astronaut"
+    }
+  ],
+  "scene": 0,
+  "nodes": [
+    {
+      "name": "node-0",
+      "mesh": 0
+    },
+    {
+      "name": "Astronaut.glb",
+      "children": [
+        0
+      ]
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 57744,
+      "target": 34962,
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 57744,
+      "byteLength": 57744,
+      "target": 34962,
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 115488,
+      "byteLength": 38496,
+      "target": 34962,
+      "byteStride": 8
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 153984,
+      "byteLength": 9624,
+      "target": 34963
+    }
+  ],
+  "buffers": [
+    {
+      "uri": "Astronaut_data.bin",
+      "byteLength": 163608
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 4812,
+      "max": [
+        0.5598490238189697,
+        2.0108470916748047,
+        0.35558950901031494
+      ],
+      "min": [
+        -0.5598490238189697,
+        0,
+        -0.36792251467704773
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 4812,
+      "max": [
+        1,
+        1,
+        1
+      ],
+      "min": [
+        -1,
+        -1,
+        -1
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 4812,
+      "max": [
+        0.9919459819793701,
+        -0.0031419999431818724
+      ],
+      "min": [
+        0.007249000016599894,
+        -0.9937999844551086
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5123,
+      "count": 4812,
+      "max": [
+        4811
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    }
+  ],
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.5,
+          0.5,
+          0.5,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.9699476628648295,
+        "baseColorTexture": {
+          "index": 0
+        }
+      },
+      "doubleSided": true,
+      "name": "Astronaut_mat"
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987
+    }
+  ],
+  "images": [
+    {
+      "uri": "Astronaut_img0.png"
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "mode": 4,
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0
+        }
+      ]
+    }
+  ],
+  "extensionsUsed": [],
+  "extensionsRequired": []
+}
