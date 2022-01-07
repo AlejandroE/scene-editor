@@ -12,6 +12,7 @@ const ModelThree = (props) => {
   const [hotspotCounter, setHotspotCounter] = useState(0);
   const [activeSpot, setActiveSpot] = useState(null);
   const [hotspots, setHotspots] = useState([]);
+  const [startCamOrbit, setStartCamOrbit] = useState(null);
 
   const [cameraRadiusRatio, setCameraRadiusRatio] = useState(0);
   const [maxOrbit, setMaxOrbit] = useState(null);
@@ -68,20 +69,20 @@ const ModelThree = (props) => {
       setMaxOrbit(null);
       setMinOrbit(null);
     }
-  }, [limitTheta, limitRho, limitPhi]);
+  }, [limitsEnabled, limitTheta, limitRho, limitPhi]);
 
-  useEffect(() => {
-    if (limitsEnabled) {
-      
-      setCamera({theta: 0, phi: 75, rho: 105});
-    } 
-  },[limitsEnabled]);
+  const resetView = () => {
+      viewer.current.cameraTarget = 'auto auto auto';
+      viewer.current.cameraOrbit = 'auto auto auto';
+    setCamera({theta: 0, phi: 75, rho: 105});
+  };
 
   useEffect(() => {
     if (viewer && viewer.current) {
       const currentViewer = viewer.current;
       viewer.current.addEventListener("load", () => {
-        const { radius } = currentViewer.getCameraOrbit();
+        const {radius} = currentViewer.getCameraOrbit();
+        setStartCamOrbit(currentViewer.getCameraOrbit());
         setCameraRadiusRatio(radius / 1.05);
       });
     }
@@ -108,7 +109,7 @@ const ModelThree = (props) => {
       );
     }
     return () => {
-      // viewer.current.removeEventListener('camera-change',
+      viewer.current.removeEventListener('camera-change', onCameraChange);
       viewer.current.removeEventListener('dblclick', onClick);
     }
   });
@@ -187,16 +188,13 @@ const ModelThree = (props) => {
         limitPhi: hotspot.props['data-limit-phi'],
       };
 
-      // viewer.current.cameraTarget = hotspot.props['data-position'];
       if (hotspot.props['data-cam-rho']) { 
-        debugger
         setCamera({
           rho: hotspot.props['data-cam-rho'], 
           phi: hotspot.props['data-cam-phi'], 
           theta: hotspot.props['data-cam-theta'],
         })
        
-        //viewer.current.cameraOrbit = hotspot.props['data-current-camera-orbit'];
       }
       setCameraLimits(cameraLimitsVals)
     }
@@ -207,15 +205,14 @@ const ModelThree = (props) => {
     hotspots[activeSpot - 1] = <button 
       key={hotspot.key}
       {...hotspot.props}
-      // data-max-camera-orbit={`${maxOrbit.theta}deg ${maxOrbit.phi}deg ${maxOrbit.rho}%`}
-      // data-min-camera-orbit={`${minOrbit.theta}deg ${minOrbit.phi}deg ${minOrbit.rho}%`}
       data-limit-theta={limitTheta}
       data-limit-phi={limitPhi}
       data-limit-rho={limitRho}
       data-cam-rho={rho} 
       data-cam-phi={phi} 
-      data-cam-theta={theta} 
+      data-cam-theta={theta}
     />
+    console.log('saving...')
     setHotspots(hotspots);
   };
 
@@ -246,8 +243,10 @@ const ModelThree = (props) => {
         ar
       >
         {hotspots}
-        <button id="view-reset">View reset</button>
-        <button id="save" onClick={saveHotspotConfig}>save</button>
+        <div className='controls'>
+        <button className="btn" id="view-reset" onClick={resetView}>View reset</button>
+        <button className="btn" id="save" onClick={saveHotspotConfig}>Save</button>
+        </div>
       </model-viewer>
     </div>
   );
