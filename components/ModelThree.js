@@ -162,7 +162,7 @@ const ModelThree = (props) => {
           className="hotspot"
           data-position={position.toString()}
           data-normal={normal ? normal.toString() : null}
-          onClick={() => setActiveSpot(counter)}
+          onClick={() => {setActiveSpot(counter); moveCenter(viewer.current.cameraTarget) }}
           slot={"hotspot-" + counter}>
           {emoji()}
         </button>]) 
@@ -173,6 +173,10 @@ const ModelThree = (props) => {
       viewer.current.removeEventListener('dblclick', onClick);
     }
   };
+
+  const moveCenter = (target) => {
+    viewer.current.cameraTarget = target;
+  }
   
   useLayoutEffect(() => {
     if (activeSpot) {
